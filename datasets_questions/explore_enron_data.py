@@ -17,5 +17,18 @@
 
 import joblib
 
-enron_data = joblib.load(open("../final_project/final_project_dataset.pkl", "rb"))
+enron_data = joblib.load(open("final_project/final_project_dataset.pkl", "rb"))
+cnt = 0
+
+for p in enron_data:
+    if enron_data[p]['total_payments'] == "NaN" and enron_data[p]['poi'] == True: cnt +=1
+    # if enron_data[p]['poi'] == True: cnt +=1
+    # if enron_data[p]['total_payments'] == "NaN" : cnt +=1
+# print(enron_data['LAY KENNETH L'.upper()])
+print(cnt)
+# cnt = 0
+# for p in enron_data:
+#     if enron_data[p]['email_address'] != "NaN": cnt +=1
+# print(cnt)
+print(len(enron_data), cnt/len(enron_data))
 
