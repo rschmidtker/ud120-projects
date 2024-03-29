@@ -26,13 +26,24 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
 
+from sklearn import linear_model
+
+# Create linear regression object
+reg = linear_model.LinearRegression()
+
+# Train the model using the training sets
+reg.fit(ages_train, net_worths_train)
+# reg.fit(feature_train, feature_train)
 
 
+# Make predictions using the testing set
+pred = reg.predict(ages_test)
+# pred = reg.predict(feature_train)
 
-
-
-
-
+# The coefficients
+print("Coefficients: ", reg.coef_)
+print("Intercept: ", reg.intercept_)
+print("score:", reg.score(ages_test, net_worths_test))
 
 
 try:
