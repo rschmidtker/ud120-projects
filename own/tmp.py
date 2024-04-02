@@ -22,7 +22,7 @@ def featureScaling(arr):
     ret = []
     for i in arr:
         if xmin != xmax:
-            x = i - xmin / xmax - xmin
+            x = (i - xmin) / (xmax - xmin)
         else:
             x = 0.5
         ret.append(x)
@@ -39,6 +39,11 @@ weigths = numpy.array([[115.], [140.], [175.]])
 scaler = MinMaxScaler()
 rescaled_weights = scaler.fit_transform(weigths)
 print(rescaled_weights)
+w2 = numpy.array(data)
+w2 = w2[:, numpy.newaxis]
+# w2.reshape(len(data), 1)
+r = scaler.fit_transform(w2)
+print(r)
 
 
 
