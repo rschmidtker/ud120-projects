@@ -5,6 +5,7 @@ import joblib
 import re
 import sys
 import os
+os.chdir(os.path.basename(os.path.dirname(__file__)))
 
 sys.path.append(os.path.abspath("../tools/"))
 from parse_out_email_text import parseOutText
@@ -23,9 +24,8 @@ from parse_out_email_text import parseOutText
     The data is stored in lists and packed away in pickle files at the end.
 """
 
-
-from_sara  = open("from_sara.txt", "r")
-from_chris = open("from_chris.txt", "r")
+from_sara  = open("../text_learning/from_sara.txt", "r")
+from_chris = open("../text_learning/from_chris.txt", "r")
 
 from_data = []
 word_data = []
@@ -39,36 +39,46 @@ temp_counter = 0
 
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
+    temp_counter = 0
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         temp_counter += 1
-        if temp_counter < 200:
-	        path = os.path.join('..', path[:-1])
-	        print(path)
-	        email = open(path, "r")
+        if temp_counter < 2000000:
+            path = os.path.join('..', path[:-1])
+            print(path)
+            email = open(path, "r")
 
-	        ### use parseOutText to extract the text from the opened email
+            ### use parseOutText to extract the text from the opened email
+            txt = parseOutText(email)    
 
-
-	        ### use str.replace() to remove any instances of the words
-	        ### ["sara", "shackleton", "chris", "germani"]
-
-
-	        ### append the text to word_data
-
-
-	        ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            ### use str.replace() to remove any instances of the words
+            ### ["sara", "shackleton", "chris", "germani"]
+            reps = ["sara", "shackleton", "chris", "germani"]
+            # reps = ["sara", "shackleton", "chris", "germani", "Sara", "Shackleton", "Chris", "Germani"]
+            for r in reps:
+                txt = txt.replace(r,"")
 
 
-	        email.close()
+            ### append the text to word_data
+            word_data.append(txt)
+
+
+            ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            if name == "sara":
+                from_data.append(0)
+            elif name == "chris":
+                from_data.append(1)
+
+
+            email.close()
 
 print("Emails Processed")
 from_sara.close()
 from_chris.close()
 
-joblib.dump( word_data, open("your_word_data.pkl", "wb") )
-joblib.dump( from_data, open("your_email_authors.pkl", "wb") )
+joblib.dump( word_data, open("your_word_data.pkl", "wb"), compress=False)
+joblib.dump( from_data, open("your_email_authors.pkl", "wb"), compress=False)
 
 
 ### in Part 4, do TfIdf vectorization here
