@@ -35,9 +35,16 @@ def parseOutText(f):
         ### split the text string into individual words, stem each word,
         ### and append the stemmed word to words (make sure there's a single
         ### space between each stemmed word)
+        # tmp = text_string.split()
+        # for i in tmp:
+        #     words = words + i.strip() + " "
+
         tmp = text_string.split()
-        for i in tmp:
-            words = words + i.strip() + " "
+        from nltk.stem.snowball import SnowballStemmer
+        stemmer = SnowballStemmer("english")
+        for txt in tmp:
+            stem_txt = stemmer.stem(txt)
+            words = words + stem_txt.strip() + " "
 
 
 
