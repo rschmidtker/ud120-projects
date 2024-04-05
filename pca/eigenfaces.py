@@ -30,6 +30,10 @@ from sklearn.metrics import confusion_matrix
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 
+import os
+os.chdir(os.path.basename(os.path.dirname(__file__)))
+
+
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
@@ -70,6 +74,8 @@ print("Extracting the top %d eigenfaces from %d faces" % (n_components, X_train.
 t0 = time()
 pca = PCA(n_components=n_components, whiten=True).fit(X_train)
 print("done in %0.3fs" % (time() - t0))
+# print("explained variance ratio:  ", pca.explained_variance_ratio_)
+# print("explained variance:  ", pca.explained_variance_)
 
 eigenfaces = pca.components_.reshape((n_components, h, w))
 
