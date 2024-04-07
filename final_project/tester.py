@@ -14,6 +14,8 @@ import pickle
 import sys
 from sklearn.model_selection import StratifiedShuffleSplit
 import os
+# need for working in a parent vscode project to get all used pathes corrected
+os.chdir(os.path.basename(os.path.dirname(__file__)))
 
 sys.path.append(os.path.abspath(("../tools/")))
 from feature_format import featureFormat, targetFeatureSplit

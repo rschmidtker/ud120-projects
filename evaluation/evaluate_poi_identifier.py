@@ -64,4 +64,14 @@ from sklearn.metrics import accuracy_score
 ac = accuracy_score(labels_pred, labels_test)
 print("ac:", ac)
 
+from sklearn.metrics import precision_score, recall_score 
+pc = precision_score(labels_test, labels_pred)
+rc = recall_score(labels_test, labels_pred)
+print("pc, rc: ", pc, rc)
 
+# predictions = [0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1]
+# true_labels = [0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0]
+
+# pc = precision_score(true_labels, predictions)
+# rc = recall_score(true_labels, predictions)
+# print("pc, rc: ", pc, rc)
